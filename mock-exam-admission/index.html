@@ -6,15 +6,18 @@
   <title>모의고사 대학 찾기</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <nav class="topnav">
     <div class="wrap">
-      <a class="brand" href="index.html">🎓 모의고사 대학 찾기</a>
+      <a class="brand" href="index.html"><img class="brand-mark" src="img/logo.svg" alt="" />모의고사 대학 찾기</a>
       <div class="links">
         <a href="input.html">성적 입력</a>
         <a href="result.html">결과 보기</a>
+        <span class="nav-sep" aria-hidden="true"></span>
+        <a href="target.html">목표 학과</a>
         <a href="method.html">계산 방법</a>
       </div>
     </div>
@@ -22,50 +25,89 @@
 
   <header class="hero hero-landing">
     <div class="wrap hero-inner">
-      <div>
+      <div class="reveal in">
         <p class="eyebrow"><span data-year></span>학년도 정시 실제 입결 기반</p>
         <h1>내 모의고사 성적으로<br />어디까지 갈 수 있을까?</h1>
         <p>성적표의 백분위나 등급만 넣으면, 서울 주요 대학 학과를 <b>안정 · 적정 · 소신 · 도전</b>으로 나눠 보여줍니다.</p>
         <div class="cta-row">
           <a class="btn primary big" href="input.html">내 성적 입력하기 →</a>
-          <a class="btn ghost-light" href="method.html">어떻게 계산하나요?</a>
+          <a class="btn ghost-light" href="#demo">먼저 체험해 보기</a>
         </div>
       </div>
-      <img class="hero-badges" src="img/badges.svg" alt="서울대, 연세대, 고려대 배지" />
+      <img class="hero-art" src="img/hero.svg" alt="성적표 그래프와 학사모, 과녁 일러스트" />
     </div>
   </header>
 
   <main class="wrap">
     <section class="stat-row">
-      <div class="stat"><b><span data-year></span>학년도</b><span>정시 결과 기준</span></div>
-      <div class="stat"><b><span data-univ-count></span>개 대학</b><span>서울 주요 대학</span></div>
-      <div class="stat"><b><span data-dept-count></span>개</b><span>모집단위(학과)</span></div>
-      <div class="stat"><b>대학어디가</b><span>공식 공개자료</span></div>
+      <div class="stat reveal"><b><span data-year></span>학년도</b><span>정시 결과 기준</span></div>
+      <div class="stat reveal d1"><b><span data-univ-count data-countup></span>개 대학</b><span>서울 주요 대학</span></div>
+      <div class="stat reveal d2"><b><span data-dept-count data-countup></span>개</b><span>모집단위(학과)</span></div>
+      <div class="stat reveal d3"><b>대학어디가</b><span>공식 공개자료</span></div>
     </section>
 
-    <h2 class="section-title">이렇게 사용해요</h2>
-    <section class="steps">
-      <a class="step card" href="input.html">
+    <h2 class="section-title reveal" id="demo">🎚️ 먼저 체험해 보기</h2>
+    <section class="card demo reveal">
+      <div>
+        <h3>국수탐 평균 백분위를 움직여 보세요</h3>
+        <p class="small-note" style="margin:0">국어·수학·탐구 백분위 평균이 이 정도라면, 학과가 판정별로 몇 개씩 나올까요?</p>
+        <fieldset class="seg" style="margin:14px 0 0">
+          <label><input type="radio" name="demo-track" value="인문" checked /> 문과</label>
+          <label><input type="radio" name="demo-track" value="자연" /> 이과</label>
+        </fieldset>
+        <div style="margin-top:14px">
+          <span class="demo-score" id="demo-score">90.0</span><span class="demo-grade" id="demo-grade"></span>
+        </div>
+        <input class="range" id="demo-range" type="range" min="60" max="100" step="0.5" value="90" aria-label="국수탐 평균 백분위" />
+        <div class="range-scale"><span>60</span><span>70</span><span>80</span><span>90</span><span>100</span></div>
+      </div>
+      <div>
+        <div class="demo-bars" id="demo-bars"></div>
+        <p class="small-note" style="margin:14px 0 0">이 점수에서 <b>적정</b>인 학과 예시</p>
+        <ul class="demo-picks" id="demo-picks"></ul>
+        <a class="btn primary" href="input.html" style="margin-top:16px">내 성적으로 정확히 보기 →</a>
+      </div>
+    </section>
+
+    <h2 class="section-title reveal">내 성적으로 갈 수 있는 대학 찾기</h2>
+    <section class="steps flow-steps">
+      <a class="step card reveal" href="input.html">
         <span class="step-no">1</span>
         <h3>성적 입력</h3>
         <p>모의고사 성적표의 국어·수학·탐구 백분위와 영어 등급을 넣어요. 백분위를 모르면 등급만 넣어도 돼요.</p>
       </a>
-      <a class="step card" href="result.html">
+      <span class="step-arrow" aria-hidden="true">→</span>
+      <a class="step card reveal d1" href="result.html">
         <span class="step-no">2</span>
         <h3>결과 확인</h3>
-        <p>작년 합격자 성적과 비교해 학과별로 안정·적정·소신·도전을 알려줘요. 대학·학과 이름으로 검색할 수 있어요.</p>
-      </a>
-      <a class="step card" href="method.html">
-        <span class="step-no">3</span>
-        <h3>근거 확인</h3>
-        <p>어떤 자료로, 어떤 식으로 계산했는지 공개해요. 학과마다 대학어디가 원자료 링크도 달려 있어요.</p>
+        <p>작년 합격자 성적과 비교해 학과별로 안정·적정·소신·도전을 알려줘요. 판정별로 골라 보거나 검색할 수 있어요.</p>
       </a>
     </section>
 
-    <h2 class="section-title">담긴 대학</h2>
-    <p class="univ-chips" id="univ-chips"></p>
+    <h2 class="section-title reveal">더 알아보기</h2>
+    <section class="menu-tiles">
+      <a class="tile reveal" href="target.html">
+        <span class="tile-icon" aria-hidden="true">🎯</span>
+        <div>
+          <h3>목표 학과 합격선</h3>
+          <p>가고 싶은 학교·학과를 고르면 합격하려면 어느 정도 백분위·등급이 필요한지 알려줘요.</p>
+        </div>
+        <span class="tile-go" aria-hidden="true">›</span>
+      </a>
+      <a class="tile reveal d1" href="method.html">
+        <span class="tile-icon" aria-hidden="true">📐</span>
+        <div>
+          <h3>계산 방법 · 근거</h3>
+          <p>어떤 자료로, 어떤 식으로 계산했는지 공개해요. 학과마다 대학어디가 원자료 링크도 달려 있어요.</p>
+        </div>
+        <span class="tile-go" aria-hidden="true">›</span>
+      </a>
+    </section>
 
-    <div class="notice">
+    <h2 class="section-title reveal">담긴 대학</h2>
+    <p class="univ-chips reveal" id="univ-chips"></p>
+
+    <div class="notice reveal">
       ⚠️ 이 결과는 <b>참고용</b>입니다. 실제 정시 합격은 대학마다 다른 환산점수로 정해지고, 합격선은 해마다 달라집니다.
       최종 지원은 대학 모집요강과 선생님 상담으로 확인하세요.
     </div>
@@ -77,10 +119,43 @@
 
   <script src="data.js"></script>
   <script src="common.js"></script>
+  <script src="ui.js"></script>
   <script>
     document.getElementById("univ-chips").innerHTML = univNames()
-      .map((u) => `<span class="chip">${esc(u)}</span>`)
+      .map((u) => `<a class="chip" href="target.html?univ=${encodeURIComponent(u)}">${esc(u)}</a>`)
       .join("");
+
+    // 미리 체험: 평균 백분위 슬라이더 → 판정별 학과 수
+    const range = document.getElementById("demo-range");
+    const scoreEl = document.getElementById("demo-score");
+    const gradeEl = document.getElementById("demo-grade");
+    const barsEl = document.getElementById("demo-bars");
+    const picksEl = document.getElementById("demo-picks");
+    const KEYS = ["안정", "적정", "소신", "도전"];
+    barsEl.innerHTML = KEYS.map(
+      (k) => `<div class="demo-bar"><span class="badge ${k}">${k}</span><div class="track"><div class="fill ${k}" data-k="${k}"></div></div><b data-n="${k}">0</b></div>`
+    ).join("");
+
+    function updateDemo() {
+      const avg = Number(range.value);
+      const track = document.querySelector('input[name="demo-track"]:checked').value;
+      const results = evaluate({ track, avg, english: 1 });
+      const counts = Object.fromEntries(KEYS.map((k) => [k, results.filter((r) => r.level === k).length]));
+      const max = Math.max(1, ...Object.values(counts));
+      scoreEl.textContent = avg.toFixed(1);
+      gradeEl.textContent = `약 ${pctToGrade(avg)}등급`;
+      for (const k of KEYS) {
+        barsEl.querySelector(`[data-k="${k}"]`).style.width = `${(counts[k] / max) * 100}%`;
+        barsEl.querySelector(`[data-n="${k}"]`).textContent = counts[k];
+      }
+      const picks = results.filter((r) => r.level === "적정").slice(0, 5);
+      picksEl.innerHTML = picks.length
+        ? picks.map((r) => `<li>${esc(r.univ)} ${esc(r.dept)}</li>`).join("")
+        : `<li>해당 학과가 없어요</li>`;
+    }
+    range.addEventListener("input", updateDemo);
+    document.querySelectorAll('input[name="demo-track"]').forEach((r) => r.addEventListener("change", updateDemo));
+    updateDemo();
   </script>
 </body>
 </html>

@@ -38,13 +38,17 @@ function start(input) {
     renderList(results);
   };
   [qEl, regionEl].forEach((el) => el.addEventListener("input", render));
-  levelButtonsEl.addEventListener("click", (e) => {
+  // 판정 버튼과 요약의 분포 막대 모두 클릭하면 그 판정만 보기
+  const onPick = (e) => {
     const btn = e.target.closest("button[data-level]");
     if (!btn) return;
     levelFilter = btn.dataset.level;
     history.replaceState(null, "", levelFilter === "전체" ? location.pathname + location.search : `#${levelFilter}`);
     render();
-  });
+    if (e.currentTarget === summaryEl) levelButtonsEl.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+  levelButtonsEl.addEventListener("click", onPick);
+  summaryEl.addEventListener("click", onPick);
   const hash = decodeURIComponent(location.hash.slice(1));
   if (LEVELS.some((l) => l.key === hash)) levelFilter = hash;
   render();
@@ -66,6 +70,15 @@ function renderSummary(s, results) {
       <div><b>${s.inquiry.toFixed(1)}</b><span>탐구 평균${unit}</span></div>
       <div><b>${s.english}등급</b><span>영어</span></div>
     </div>
+    <div class="dist" role="group" aria-label="판정별 학과 분포">
+      ${LEVELS.filter((l) => counts[l.key] > 0)
+        .map(
+          (l) => `<button type="button" class="${l.key}" data-level="${l.key}" style="flex-grow:${counts[l.key]}"
+            title="${l.key} ${counts[l.key]}개 — 눌러서 보기" aria-label="${l.key} ${counts[l.key]}개"></button>`
+        )
+        .join("")}
+    </div>
+    <p class="dist-legend">판정별 학과 분포 (전체 ${results.length}개) · 색깔 막대를 누르면 그 판정만 볼 수 있어요</p>
     ${best ? `<p>70%컷이 가장 높은 <b>적정</b> 이상 모집단위: <b>${esc(best.univ)} ${esc(best.dept)}</b></p>` : ""}
     ${s.mode === "grade" ? `<p class="warn-text">등급으로 입력해 오차가 큽니다. 성적표의 백분위를 넣으면 더 정확해요.</p>` : ""}
   `;
@@ -132,9 +145,11 @@ function itemHtml(r) {
         ${r.warns.map((w) => `<span class="warn">${esc(w)}</span>`).join("")}
         <div class="detail">70% 합격자 백분위 — 국 ${sub.korean} · 수 ${sub.math} · 탐 ${sub.inquiry}${
           r.english != null ? ` · 영어 ${r.english}등급` : ""
-        } <a href="${ADIGA_URL(r.code)}" target="_blank" rel="noopener">출처</a></div>
+        } <a href="${ADIGA_URL(r.code)}" target="_blank" rel="noopener">출처</a>
+          <a href="target.html?univ=${encodeURIComponent(r.univ)}&dept=${encodeURIComponent(r.dept)}">자세히</a></div>
       </div>
       <div class="nums">
+        <span class="pos" title="합격선 대비 내 위치 (왼쪽 도전 → 오른쪽 안정)"><i style="left:${Math.min(100, Math.max(0, ((r.diff + 4) / 8) * 100))}%"></i></span>
         <span title="${DATA_INFO.year}학년도 최종등록자 70%컷 (국수탐 평균 백분위)">70%컷 ${r.cut.toFixed(1)}</span>
         <span class="diff ${r.diff >= 0 ? "up" : "down"}">${sign}${r.diff.toFixed(1)}</span>
       </div>

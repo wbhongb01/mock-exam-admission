@@ -14,6 +14,14 @@ const LEVELS = [
 
 const STORAGE_KEY = "mock-exam-admission:v3";
 
+// 등급 경계 백분위 (이 백분위 이상이면 해당 등급) — 수능 등급 비율 4/11/23/40/60/77/89/96% 기준 근사
+const GRADE_BOUNDS = [96, 89, 77, 60, 40, 23, 11, 4];
+
+function pctToGrade(p) {
+  const idx = GRADE_BOUNDS.findIndex((b) => p >= b);
+  return idx === -1 ? 9 : idx + 1;
+}
+
 const ADIGA_URL = (code) =>
   `https://www.adiga.kr/ucp/uvt/uni/univDetailSelection.do?menuId=PCUVTINF2000&unvCd=${code}&searchSyr=${DATA_INFO.searchSyr}`;
 

@@ -2,12 +2,6 @@ const form = document.getElementById("score-form");
 const PCT_FIELDS = ["k", "m", "t1", "t2"];
 const gradeHint = document.getElementById("grade-hint");
 
-function pctToGrade(p) {
-  const bounds = [96, 89, 77, 60, 40, 23, 11, 4]; // 등급 경계 백분위
-  const idx = bounds.findIndex((b) => p >= b);
-  return idx === -1 ? 9 : idx + 1;
-}
-
 // 백분위 입력칸 ↔ 등급 선택칸 바꾸기 (입력한 값은 가능한 한 옮겨 줌)
 function setMode(mode) {
   for (const name of PCT_FIELDS) {
@@ -67,5 +61,42 @@ form.addEventListener("submit", (e) => {
   location.href = `result.html?${inputToQuery(input)}`;
 });
 
+// 실시간 미리보기: 입력할 때마다 국수탐 평균과 판정별 학과 수 표시
+function currentInput() {
+  const f = form.elements;
+  return { track: f.track.value, mode: f.mode.value, k: f.k.value, m: f.m.value, t1: f.t1.value, t2: f.t2.value, e: f.e.value };
+}
+
+function updateLive() {
+  const input = currentInput();
+  const ring = document.getElementById("ring");
+  const avgEl = document.getElementById("live-avg");
+  const gradeEl = document.getElementById("live-grade");
+  const descEl = document.getElementById("live-desc");
+  const levelsEl = document.getElementById("live-levels");
+  const filled = ["k", "m", "t1", "t2"].every((k) => input[k] !== "" && input[k] != null);
+  if (!filled) {
+    ring.style.background = "conic-gradient(var(--line) 0 100%)";
+    avgEl.textContent = "–";
+    gradeEl.textContent = "점수를 넣으면 바로 계산해 드려요";
+    descEl.textContent = "국어·수학·탐구 두 과목을 모두 넣어 주세요.";
+    levelsEl.innerHTML = "";
+    return;
+  }
+  const s = toScores(input);
+  const results = evaluate(s);
+  const count = (k) => results.filter((r) => r.level === k).length;
+  ring.style.background = `conic-gradient(var(--accent) ${s.avg}%, var(--line) 0)`;
+  avgEl.textContent = s.avg.toFixed(1);
+  gradeEl.textContent = `평균 약 ${pctToGrade(s.avg)}등급 수준이에요`;
+  descEl.textContent = `${s.track}계열 ${results.length}개 모집단위 기준`;
+  levelsEl.innerHTML = ["안정", "적정", "소신", "도전"].map((k) => `<span class="${k}">${k} ${count(k)}</span>`).join("");
+}
+
+form.addEventListener("input", updateLive);
+form.addEventListener("change", updateLive);
+document.getElementById("sample-btn").addEventListener("click", updateLive);
+
 // 결과 페이지에서 '성적 수정'으로 돌아온 경우엔 URL 값, 아니면 지난번 입력값
 fill(inputFromQuery() || loadInput());
+updateLive();

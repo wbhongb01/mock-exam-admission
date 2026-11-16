@@ -6,15 +6,18 @@
   <title>계산 방법 · 모의고사 대학 찾기</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <nav class="topnav">
     <div class="wrap">
-      <a class="brand" href="index.html">🎓 모의고사 대학 찾기</a>
+      <a class="brand" href="index.html"><img class="brand-mark" src="img/logo.svg" alt="" />모의고사 대학 찾기</a>
       <div class="links">
         <a href="input.html">성적 입력</a>
         <a href="result.html">결과 보기</a>
+        <span class="nav-sep" aria-hidden="true"></span>
+        <a href="target.html">목표 학과</a>
         <a href="method.html" aria-current="page">계산 방법</a>
       </div>
     </div>
@@ -143,6 +146,7 @@
 
   <script src="data.js"></script>
   <script src="common.js"></script>
+  <script src="ui.js"></script>
   <script>
     document.getElementById("level-table").innerHTML =
       "<tr><th>판정</th><th>내 평균 − 합격선</th><th>의미</th></tr>" +

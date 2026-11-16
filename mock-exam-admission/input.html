@@ -6,15 +6,18 @@
   <title>성적 입력 · 모의고사 대학 찾기</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <nav class="topnav">
     <div class="wrap">
-      <a class="brand" href="index.html">🎓 모의고사 대학 찾기</a>
+      <a class="brand" href="index.html"><img class="brand-mark" src="img/logo.svg" alt="" />모의고사 대학 찾기</a>
       <div class="links">
         <a href="input.html" aria-current="page">성적 입력</a>
         <a href="result.html">결과 보기</a>
+        <span class="nav-sep" aria-hidden="true"></span>
+        <a href="target.html">목표 학과</a>
         <a href="method.html">계산 방법</a>
       </div>
     </div>
@@ -69,6 +72,15 @@
           </label>
         </div>
 
+        <div class="live" aria-live="polite">
+          <div class="ring" id="ring"><div><b id="live-avg">–</b><small>국수탐 평균</small></div></div>
+          <div class="live-text">
+            <b id="live-grade">점수를 넣으면 바로 계산해 드려요</b>
+            <p id="live-desc">국어·수학·탐구 두 과목을 모두 넣어 주세요.</p>
+            <div class="mini-levels" id="live-levels"></div>
+          </div>
+        </div>
+
         <p class="hint" id="grade-hint" hidden>
           등급만 넣으면 각 등급의 대표 백분위(1등급 98, 2등급 92, 3등급 83 …)로 바꿔 계산해요. 같은 등급 안에서도 차이가 커서 결과 오차가 큽니다.
         </p>
@@ -85,6 +97,7 @@
 
   <script src="data.js"></script>
   <script src="common.js"></script>
+  <script src="ui.js"></script>
   <script src="input.js"></script>
 </body>
 </html>

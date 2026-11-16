@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 360" role="img" aria-label="성적표와 합격 가능성 그래프, 학사모 일러스트">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef1ff"/>
+    </linearGradient>
+    <linearGradient id="cap" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2b2f55"/>
+      <stop offset="1" stop-color="#14162e"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe066"/>
+      <stop offset="1" stop-color="#fab005"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 뒤쪽 원형 장식 -->
+  <circle cx="300" cy="120" r="96" fill="#ffffff" opacity="0.12"/>
+  <circle cx="110" cy="270" r="60" fill="#ffffff" opacity="0.10"/>
+
+  <!-- 성적표 카드 -->
+  <g transform="rotate(-6 200 200)">
+    <rect x="70" y="80" width="250" height="230" rx="22" fill="url(#paper)"/>
+    <rect x="96" y="104" width="120" height="12" rx="6" fill="#3b5bdb" opacity="0.85"/>
+    <rect x="96" y="126" width="80" height="8" rx="4" fill="#c5cbe8"/>
+    <!-- 막대 그래프 (도전·소신·적정·안정) -->
+    <line x1="96" y1="280" x2="296" y2="280" stroke="#dfe3f3" stroke-width="3" stroke-linecap="round"/>
+    <rect x="104" y="232" width="34" height="48" rx="8" fill="#e03131"/>
+    <rect x="150" y="206" width="34" height="74" rx="8" fill="#f08c00"/>
+    <rect x="196" y="176" width="34" height="104" rx="8" fill="#1c7ed6"/>
+    <rect x="242" y="148" width="34" height="132" rx="8" fill="#2f9e44"/>
+    <!-- 추세선 -->
+    <polyline points="121,222 167,196 213,166 259,138" fill="none" stroke="#5f3dc4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="259" cy="138" r="7" fill="#5f3dc4" stroke="#fff" stroke-width="3"/>
+  </g>
+
+  <!-- 과녁 -->
+  <g transform="translate(340 236)">
+    <circle r="54" fill="#ffffff"/>
+    <circle r="40" fill="#ff8787"/>
+    <circle r="27" fill="#ffffff"/>
+    <circle r="14" fill="#fa5252"/>
+    <line x1="58" y1="-58" x2="4" y2="-4" stroke="#2b2f55" stroke-width="5" stroke-linecap="round"/>
+    <path d="M52 -66 l18 -4 -4 18 z" fill="#2b2f55"/>
+  </g>
+
+  <!-- 학사모 -->
+  <g transform="translate(286 62) rotate(12)">
+    <path d="M-30 18 v22 q30 18 60 0 v-22 z" fill="#1c1f3d"/>
+    <path d="M0 -10 L58 14 L0 38 L-58 14 Z" fill="url(#cap)"/>
+    <path d="M0 14 L44 26 v26" fill="none" stroke="url(#gold)" stroke-width="3"/>
+    <circle cx="44" cy="56" r="6" fill="url(#gold)"/>
+    <circle cx="0" cy="14" r="4" fill="url(#gold)"/>
+  </g>
+
+  <!-- 반짝이 -->
+  <g fill="#ffffff">
+    <path d="M60 70 l4 12 12 4 -12 4 -4 12 -4 -12 -12 -4 12 -4 z" opacity="0.9"/>
+    <path d="M396 120 l3 9 9 3 -9 3 -3 9 -3 -9 -9 -3 9 -3 z" opacity="0.8"/>
+    <path d="M200 30 l2.5 7 7 2.5 -7 2.5 -2.5 7 -2.5 -7 -7 -2.5 7 -2.5 z" opacity="0.7"/>
+  </g>
+</svg>
