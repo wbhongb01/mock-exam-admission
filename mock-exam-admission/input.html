@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>성적 입력 · 모의고사 대학 찾기</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="topnav">
+    <div class="wrap">
+      <a class="brand" href="index.html">🎓 모의고사 대학 찾기</a>
+      <div class="links">
+        <a href="input.html" aria-current="page">성적 입력</a>
+        <a href="result.html">결과 보기</a>
+        <a href="method.html">계산 방법</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap page">
+    <ol class="progress">
+      <li class="on">1. 성적 입력</li>
+      <li>2. 결과 보기</li>
+    </ol>
+    <h1 class="page-title">모의고사 성적 입력</h1>
+    <p class="page-sub">성적표에 적힌 <b>백분위</b>를 넣으면 가장 정확해요. 백분위를 모르면 '등급만 알아요'를 고르세요.</p>
+
+    <section class="card">
+      <form id="score-form" action="result.html">
+        <div class="row">
+          <fieldset class="seg">
+            <legend>계열</legend>
+            <label><input type="radio" name="track" value="인문" checked /> 인문</label>
+            <label><input type="radio" name="track" value="자연" /> 자연</label>
+          </fieldset>
+          <fieldset class="seg">
+            <legend>입력 방식</legend>
+            <label><input type="radio" name="mode" value="pct" checked /> 백분위</label>
+            <label><input type="radio" name="mode" value="grade" /> 등급만 알아요</label>
+          </fieldset>
+        </div>
+
+        <div class="grid">
+          <label class="field">
+            <span>국어 <em class="unit">백분위</em></span>
+            <input type="number" name="k" min="0" max="100" required />
+          </label>
+          <label class="field">
+            <span>수학 <em class="unit">백분위</em></span>
+            <input type="number" name="m" min="0" max="100" required />
+          </label>
+          <label class="field">
+            <span>탐구1 <em class="unit">백분위</em></span>
+            <input type="number" name="t1" min="0" max="100" required />
+          </label>
+          <label class="field">
+            <span>탐구2 <em class="unit">백분위</em></span>
+            <input type="number" name="t2" min="0" max="100" required />
+          </label>
+          <label class="field">
+            <span>영어 <em>등급</em></span>
+            <select name="e">
+              <option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option>
+              <option>6</option><option>7</option><option>8</option><option>9</option>
+            </select>
+          </label>
+        </div>
+
+        <p class="hint" id="grade-hint" hidden>
+          등급만 넣으면 각 등급의 대표 백분위(1등급 98, 2등급 92, 3등급 83 …)로 바꿔 계산해요. 같은 등급 안에서도 차이가 커서 결과 오차가 큽니다.
+        </p>
+
+        <div class="row actions">
+          <button type="button" id="sample-btn" class="ghost">예시 성적 넣기</button>
+          <button type="submit" class="primary">지원 가능 대학 보기 →</button>
+        </div>
+      </form>
+    </section>
+
+    <p class="small-note">입력한 성적은 서버로 보내지 않고 이 브라우저에만 기억됩니다. <a href="method.html">계산 방법 보기</a></p>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="common.js"></script>
+  <script src="input.js"></script>
+</body>
+</html>

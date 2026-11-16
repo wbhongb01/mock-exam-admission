@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>결과 보기 · 모의고사 대학 찾기</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="topnav">
+    <div class="wrap">
+      <a class="brand" href="index.html">🎓 모의고사 대학 찾기</a>
+      <div class="links">
+        <a href="input.html">성적 입력</a>
+        <a href="result.html" aria-current="page">결과 보기</a>
+        <a href="method.html">계산 방법</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap page">
+    <ol class="progress">
+      <li class="done"><a href="input.html" id="progress-input">1. 성적 입력</a></li>
+      <li class="on">2. 결과 보기</li>
+    </ol>
+
+    <section id="no-input" class="card empty-state" hidden>
+      <h1 class="page-title">아직 입력한 성적이 없어요</h1>
+      <p>먼저 모의고사 성적을 입력해 주세요.</p>
+      <a class="btn primary" href="input.html">성적 입력하러 가기 →</a>
+    </section>
+
+    <section id="results" hidden>
+      <div class="result-head">
+        <h1 class="page-title">지원 가능 대학 결과</h1>
+        <a class="btn ghost" id="edit-btn" href="input.html">✎ 성적 수정</a>
+      </div>
+      <div class="summary card" id="summary"></div>
+
+      <div class="filters">
+        <input type="search" id="q" placeholder="대학·학과 검색 (예: 컴퓨터, 경희)" />
+        <select id="region">
+          <option value="">전체 지역</option>
+        </select>
+        <label class="check"><input type="checkbox" id="show-hard" /> 어려움도 보기</label>
+      </div>
+
+      <div class="legend" id="legend"></div>
+
+      <div id="groups"></div>
+
+      <p class="small-note">
+        <span data-year></span>학년도 정시 일반전형 최종등록자 70% 학생의 국·수·탐 백분위 평균과 비교한 결과입니다.
+        <a href="method.html">어떻게 계산했나요?</a>
+      </p>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="common.js"></script>
+  <script src="result.js"></script>
+</body>
+</html>

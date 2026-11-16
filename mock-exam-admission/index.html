@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>모의고사 대학 찾기</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="topnav">
+    <div class="wrap">
+      <a class="brand" href="index.html">🎓 모의고사 대학 찾기</a>
+      <div class="links">
+        <a href="input.html">성적 입력</a>
+        <a href="result.html">결과 보기</a>
+        <a href="method.html">계산 방법</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero hero-landing">
+    <div class="wrap hero-inner">
+      <div>
+        <p class="eyebrow"><span data-year></span>학년도 정시 실제 입결 기반</p>
+        <h1>내 모의고사 성적으로<br />어디까지 갈 수 있을까?</h1>
+        <p>성적표의 백분위나 등급만 넣으면, 서울 주요 대학 학과를 <b>안정 · 적정 · 소신 · 도전</b>으로 나눠 보여줍니다.</p>
+        <div class="cta-row">
+          <a class="btn primary big" href="input.html">내 성적 입력하기 →</a>
+          <a class="btn ghost-light" href="method.html">어떻게 계산하나요?</a>
+        </div>
+      </div>
+      <img class="hero-badges" src="img/badges.svg" alt="서울대, 연세대, 고려대 배지" />
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="stat-row">
+      <div class="stat"><b><span data-year></span>학년도</b><span>정시 결과 기준</span></div>
+      <div class="stat"><b><span data-univ-count></span>개 대학</b><span>서울 주요 대학</span></div>
+      <div class="stat"><b><span data-dept-count></span>개</b><span>모집단위(학과)</span></div>
+      <div class="stat"><b>대학어디가</b><span>공식 공개자료</span></div>
+    </section>
+
+    <h2 class="section-title">이렇게 사용해요</h2>
+    <section class="steps">
+      <a class="step card" href="input.html">
+        <span class="step-no">1</span>
+        <h3>성적 입력</h3>
+        <p>모의고사 성적표의 국어·수학·탐구 백분위와 영어 등급을 넣어요. 백분위를 모르면 등급만 넣어도 돼요.</p>
+      </a>
+      <a class="step card" href="result.html">
+        <span class="step-no">2</span>
+        <h3>결과 확인</h3>
+        <p>작년 합격자 성적과 비교해 학과별로 안정·적정·소신·도전을 알려줘요. 대학·학과 이름으로 검색할 수 있어요.</p>
+      </a>
+      <a class="step card" href="method.html">
+        <span class="step-no">3</span>
+        <h3>근거 확인</h3>
+        <p>어떤 자료로, 어떤 식으로 계산했는지 공개해요. 학과마다 대학어디가 원자료 링크도 달려 있어요.</p>
+      </a>
+    </section>
+
+    <h2 class="section-title">담긴 대학</h2>
+    <p class="univ-chips" id="univ-chips"></p>
+
+    <div class="notice">
+      ⚠️ 이 결과는 <b>참고용</b>입니다. 실제 정시 합격은 대학마다 다른 환산점수로 정해지고, 합격선은 해마다 달라집니다.
+      최종 지원은 대학 모집요강과 선생님 상담으로 확인하세요.
+    </div>
+  </main>
+
+  <footer class="wrap">
+    <p>출처: 대학어디가(adiga.kr) 대학별 '평가기준 및 입시결과' — <span data-year></span>학년도 수능위주전형 결과. <a href="method.html">계산 방법 자세히 보기</a></p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="common.js"></script>
+  <script>
+    document.getElementById("univ-chips").innerHTML = univNames()
+      .map((u) => `<span class="chip">${esc(u)}</span>`)
+      .join("");
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" role="img" aria-label="서울대, 연세대, 고려대 배지">
+  <!-- 공식 교표가 아닌, 학교 이름만 넣은 자체 제작 배지입니다. -->
+  <defs>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <g font-family="'Noto Sans KR','Malgun Gothic',sans-serif" font-weight="700" text-anchor="middle" filter="url(#s)">
+    <g transform="translate(60 60)">
+      <circle r="50" fill="#0f2a5c"/>
+      <circle r="43" fill="none" stroke="#fff" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="3 4"/>
+      <text y="-6" font-size="22" fill="#fff">서울대</text>
+      <text y="20" font-size="10" fill="#fff" fill-opacity="0.75" letter-spacing="2">SEOUL</text>
+    </g>
+    <g transform="translate(180 60)">
+      <circle r="50" fill="#1d4fa8"/>
+      <circle r="43" fill="none" stroke="#fff" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="3 4"/>
+      <text y="-6" font-size="22" fill="#fff">연세대</text>
+      <text y="20" font-size="10" fill="#fff" fill-opacity="0.75" letter-spacing="2">YONSEI</text>
+    </g>
+    <g transform="translate(300 60)">
+      <circle r="50" fill="#9b1c2e"/>
+      <circle r="43" fill="none" stroke="#fff" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="3 4"/>
+      <text y="-6" font-size="22" fill="#fff">고려대</text>
+      <text y="20" font-size="10" fill="#fff" fill-opacity="0.75" letter-spacing="2">KOREA</text>
+    </g>
+  </g>
+</svg>
