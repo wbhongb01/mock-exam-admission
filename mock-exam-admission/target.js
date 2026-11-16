@@ -192,7 +192,12 @@ deptEl.addEventListener("change", render);
 
 // 시작: 주소의 track/univ/dept → 없으면 저장된 내 계열
 const params = new URLSearchParams(location.search);
-const startTrack = params.get("track") || loadInput()?.track || "전체";
+let startTrack = params.get("track") || loadInput()?.track || "전체";
+// 주소에 학과가 있는데 그 학과가 시작 계열에 없으면, 그 학과의 계열로 맞춤
+const wanted = DEPARTMENTS.find((d) => d.univ === params.get("univ") && d.dept === params.get("dept"));
+if (wanted && startTrack !== "전체" && wanted.track !== startTrack && wanted.track !== "공통") {
+  startTrack = wanted.track;
+}
 const radio = document.querySelector(`input[name="track"][value="${startTrack}"]`);
 if (radio) radio.checked = true;
 fillUnivs(params.get("univ"));
