@@ -2,7 +2,10 @@ const groupsEl = document.getElementById("groups");
 const summaryEl = document.getElementById("summary");
 const qEl = document.getElementById("q");
 const regionEl = document.getElementById("region");
-const showHardEl = document.getElementById("show-hard");
+const levelButtonsEl = document.getElementById("level-buttons");
+
+// 판정 필터: "전체"(어려움 제외) 또는 판정 하나. 주소의 #소신 처럼 시작 판정을 지정할 수도 있음
+let levelFilter = "전체";
 
 // URL에 성적이 있으면 그것을, 없으면 이 브라우저에 기억된 마지막 입력을 사용
 let input = inputFromQuery();
@@ -30,8 +33,20 @@ function start(input) {
     LEVELS.slice(0, 4).map((l) => `<span class="badge ${l.key}">${l.key}</span> ${l.desc}`).join(" ");
 
   renderSummary(s, results);
-  const render = () => renderList(results);
-  [qEl, regionEl, showHardEl].forEach((el) => el.addEventListener("input", render));
+  const render = () => {
+    renderLevelButtons(results);
+    renderList(results);
+  };
+  [qEl, regionEl].forEach((el) => el.addEventListener("input", render));
+  levelButtonsEl.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-level]");
+    if (!btn) return;
+    levelFilter = btn.dataset.level;
+    history.replaceState(null, "", levelFilter === "전체" ? location.pathname + location.search : `#${levelFilter}`);
+    render();
+  });
+  const hash = decodeURIComponent(location.hash.slice(1));
+  if (LEVELS.some((l) => l.key === hash)) levelFilter = hash;
   render();
   document.getElementById("results").hidden = false;
 }
@@ -51,26 +66,38 @@ function renderSummary(s, results) {
       <div><b>${s.inquiry.toFixed(1)}</b><span>탐구 평균${unit}</span></div>
       <div><b>${s.english}등급</b><span>영어</span></div>
     </div>
-    <div class="count-bar">
-      ${LEVELS.slice(0, 4)
-        .map((l) => `<div class="count ${l.key}"><b>${counts[l.key]}</b><span>${l.key}</span></div>`)
-        .join("")}
-    </div>
     ${best ? `<p>70%컷이 가장 높은 <b>적정</b> 이상 모집단위: <b>${esc(best.univ)} ${esc(best.dept)}</b></p>` : ""}
     ${s.mode === "grade" ? `<p class="warn-text">등급으로 입력해 오차가 큽니다. 성적표의 백분위를 넣으면 더 정확해요.</p>` : ""}
   `;
 }
 
-function renderList(results) {
+// 검색어·지역 조건만 적용한 목록 (판정 버튼의 개수 표시에 사용)
+function searchFiltered(results) {
   const q = qEl.value.trim();
   const region = regionEl.value;
-  const showHard = showHardEl.checked;
+  return results.filter(
+    (r) => (!q || r.univ.includes(q) || r.dept.includes(q)) && (!region || r.region === region)
+  );
+}
 
-  const visible = results.filter(
-    (r) =>
-      (!q || r.univ.includes(q) || r.dept.includes(q)) &&
-      (!region || r.region === region) &&
-      (showHard || r.level !== "어려움")
+function renderLevelButtons(results) {
+  const base = searchFiltered(results);
+  const count = (key) => base.filter((r) => r.level === key).length;
+  const buttons = [
+    { key: "전체", label: "전체", n: base.filter((r) => r.level !== "어려움").length },
+    ...LEVELS.map((l) => ({ key: l.key, label: l.key, n: count(l.key) })),
+  ];
+  levelButtonsEl.innerHTML = buttons
+    .map(
+      (b) => `<button type="button" class="level-btn ${b.key}" data-level="${b.key}"
+        aria-pressed="${levelFilter === b.key}"><span>${b.label}</span><b>${b.n}</b></button>`
+    )
+    .join("");
+}
+
+function renderList(results) {
+  const visible = searchFiltered(results).filter((r) =>
+    levelFilter === "전체" ? r.level !== "어려움" : r.level === levelFilter
   );
 
   groupsEl.innerHTML = "";
@@ -89,7 +116,8 @@ function renderList(results) {
   }
 
   if (!groupsEl.children.length) {
-    groupsEl.innerHTML = `<p class="empty">조건에 맞는 학과가 없어요. 검색어나 지역을 바꾸거나 '어려움도 보기'를 켜 보세요.</p>`;
+    const hint = levelFilter === "전체" ? "검색어나 지역을 바꿔 보세요." : "다른 판정을 고르거나 검색어·지역을 바꿔 보세요.";
+    groupsEl.innerHTML = `<p class="empty">조건에 맞는 학과가 없어요. ${hint}</p>`;
   }
 }
 

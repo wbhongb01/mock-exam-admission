@@ -226,6 +226,21 @@ footer a, .small-note a, .prose a { color: var(--accent); }
 .count.안정 { background: var(--safe); } .count.적정 { background: var(--fit); }
 .count.소신 { background: var(--reach); } .count.도전 { background: var(--challenge); }
 .warn-text { color: var(--challenge); font-size: 0.88rem; }
+.level-filter { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.level-filter .label { font-size: 0.85rem; color: var(--muted); font-weight: 700; }
+.level-buttons { display: flex; gap: 6px; flex-wrap: wrap; }
+.level-btn {
+  --c: var(--accent);
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 999px; font-size: 0.9rem;
+  background: var(--surface); color: var(--text); border: 1px solid var(--line);
+}
+.level-btn b { font-size: 0.85rem; color: var(--muted); }
+.level-btn.안정 { --c: var(--safe); } .level-btn.적정 { --c: var(--fit); }
+.level-btn.소신 { --c: var(--reach); } .level-btn.도전 { --c: var(--challenge); } .level-btn.어려움 { --c: var(--hard); }
+.level-btn:hover { border-color: var(--c); }
+.level-btn[aria-pressed="true"] { background: var(--c); border-color: var(--c); color: #fff; }
+.level-btn[aria-pressed="true"] b { color: rgba(255,255,255,0.9); }
 .empty-state { text-align: center; padding: 40px 20px; }
 
 /* ---------- 계산 방법 페이지 ---------- */
